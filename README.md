@@ -66,13 +66,3 @@ This project is a custom shell implementation with various features such as comm
 
 6) hop .. .. .. .. .. The directory previous to the last dot dot library will be the previousdirectory(new) 
 
-
-# Screenshots
-![File Access](https://github.com/user-attachments/assets/4e4e855d-46ef-4911-be9f-c9e3d8ad311f)
-![Directory Access](https://github.com/user-attachments/assets/d3e179ba-c93d-48be-9023-cce2cba4fc00)
-![Time](https://github.com/user-attachments/assets/80661954-1a1a-4ae3-adfe-78ceaa32ff01)
-![Seek](https://github.com/user-attachments/assets/31efcbdd-343d-4ee5-9380-ed1faa7db226)
-![Strtok](https://github.com/user-attachments/assets/c3a53e62-0c77-4ab4-b380-c903fd43ecb1)
-![Proclore](https://github.com/user-attachments/assets/6b1339c5-7d59-4c7b-a214-c9a2f2bdfd02)
-![Reveal](https://github.com/user-attachments/assets/0ae5db49-f7c4-4c64-a70b-d7c408564d3a)
-
