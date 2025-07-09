@@ -77,7 +77,6 @@ This project is a custom shell implementation designed to handle various system-
 ## Command Behavior
 
 - **Background Process Checks**: The `sleep` command may not reliably indicate the status of background processes on certain systems. Use `gedit` or `emacs` to check background processes instead.
-- **Redirection Limitations**: Commands that use input/output redirection, such as `> a.txt` or `< a.txt`, are not supported in this shell.
 - **Macro Usage**: The macro `MAX_LENGTH_OF_NAMES` defines the maximum allowable length for specific string values and names within the shell.
 
 ## Argument Handling
