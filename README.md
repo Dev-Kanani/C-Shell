@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a custom shell implementation with various features such as command execution, job management, process information retrieval, file searching, and logging. The shell supports foreground and background processes and includes several commands to interact with the system.
+This project is a custom shell implementation designed to handle various system-level tasks such as command execution, job management, process control, and input/output redirection. The shell supports both foreground and background processes and includes several built-in commands to interact with the system.
 
 ## Files
 
@@ -32,6 +32,20 @@ This project is a custom shell implementation with various features such as comm
 - **`main.c`**
   - Contains the main function that initializes the shell and handles user input and command execution.
 
+### Header Files
+
+- **`neonate.h`**
+  - Declares the functions and variables for handling the `neonate` command, which prints the PID of the most recent process created.
+
+- **`iman.h`**
+  - Contains the declarations for the `iMan` command, which fetches man pages from the internet using sockets.
+
+- **`aliases.h`**
+  - Defines structures and functions for managing command aliases, including dynamic creation and persistence through a `.myshrc` file.
+
+- **`ioredirect.h`**
+  - Declares functions for handling input/output redirection, ensuring that commands properly redirect their input and output as specified by the user.
+
 ## Compilation
 
 1. **Build the Project**
@@ -52,17 +66,38 @@ This project is a custom shell implementation with various features such as comm
   ```sh
   ./a.out
 
-## Assumptions
+## Assumptions for Shell Implementation
 
-1) Macro Usage: The macro MAX_LENGTH_OF_NAMES is used to define the maximum length for certain strings.
+## Piping and Redirection Rules
 
-2) Multiple Arguments Handling: If a command has multiple arguments with a length greater than 2, the argument in the last position is retained and displayed.
+- **Pipes at Start or End**: If a pipe (`|`) is placed at the start or end of a command, it will result in an error.
+- **Consecutive Pipes with Space**: If there are two pipes (`|`) with spaces between them in a command, this will trigger an error, invalidating the entire command.
+- **Double Pipes (`||`) Behavior**: In commands containing double pipes (`||`), any part of the command that follows `||` will be ignored. No syntax errors will be reported for the ignored part, even if they exist.
 
-3) hop Command Behavior : When using the hop command with the t1 - flag, the shell will ultimately return to the original directory where the command was initially called.
-   
-4) I am not adding the log execute commands again.
-   
-5) hop . doesnt change the previous directory
+## Command Behavior
 
-6) hop .. .. .. .. .. The directory previous to the last dot dot library will be the previousdirectory(new) 
+- **Background Process Checks**: The `sleep` command may not reliably indicate the status of background processes on certain systems. Use `gedit` or `emacs` to check background processes instead.
+- **Redirection Limitations**: Commands that use input/output redirection, such as `> a.txt` or `< a.txt`, are not supported in this shell.
+- **Macro Usage**: The macro `MAX_LENGTH_OF_NAMES` defines the maximum allowable length for specific string values and names within the shell.
 
+## Argument Handling
+
+- **Handling Multiple Arguments**: For commands with multiple arguments that exceed a length of 2, the argument in the last position will be retained and used. This is specifically relevant to commands like `sleep`.
+
+## `hop` Command
+
+- **Behavior of the `hop` Command**:
+   - Using the `hop` command with the `t1` flag will return the shell to the original directory where the command was first executed.
+   - The `hop .` command does not modify the current working directory.
+   - In commands like `hop .. .. .. ..`, the shell will set the directory previous to the last `..` as the new "previous directory."
+
+## Logging
+
+- **Log Execution**: The shell does not log commands that have been executed, so commands cannot be replayed from logs.
+- If at anywhere in my command there is `log`, then the whole log.txt file will get printed.
+
+## Printing
+
+- **Output Redirection with Background Processes**: When executing commands like sleep 4 & > a.txt, the output, including the PID of the background process and the success message, will be redirected entirely to a.txt.
+
+- **`hop .. &` Command Behavior**:Using the hop .. & command will not function as expected when running in the background. The process will not change directories or work as intended. Only the PID will be printed, but no actual execution will occur, leading to an error in execvp.
